@@ -31,6 +31,11 @@ jobs:
 
       - name: Echo steps.docker_meta.outputs.tags
         run: echo 'steps.docker_meta.outputs.tags was ${{ steps.docker_meta.outputs.tags }}.' 
+        ## out log
+        # steps.docker_meta.outputs.tags was ghcr.io/weilong-tess/demo:master
+        # ghcr.io/weilong-tess/demo:sha-e1e0b01.
+
+
 
       # -
       #   name: Set up QEMU
@@ -58,3 +63,10 @@ jobs:
       #       ghcr.io/weilong-tess/demo:latest
       #       # ghcr.io/weilong-tess/demo:1.0.0
       #       2-${{ steps.docker_meta.outputs.tags }}
+      -  
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
