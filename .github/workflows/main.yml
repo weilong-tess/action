@@ -22,9 +22,9 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: ghcr.io/along8846
+          registry: ghcr.io
 #           username: ${{ github.repository_owner }}
-          username: along8846
+          username: weilong
           password: ${{ secrets.GHCR_TOKEN }}
       -
         name: Build and push
@@ -32,4 +32,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: user/app:latest
+          tags: demo:latest
