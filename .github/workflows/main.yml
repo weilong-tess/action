@@ -6,6 +6,7 @@ on:
       - 'master'
     tags:
       - '*.*.*'
+  pull_request:
 
 jobs:
   docker:
@@ -26,16 +27,14 @@ jobs:
           # add git short SHA as Docker tag
           tag-sha: true
 
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.hello.outputs.time }}.' 
-
       - name: Echo steps.docker_meta.outputs.tags
         run: echo 'steps.docker_meta.outputs.tags was ${{ steps.docker_meta.outputs.tags }}.' 
         ## out log
         # steps.docker_meta.outputs.tags was ghcr.io/weilong-tess/demo:master
         # ghcr.io/weilong-tess/demo:sha-e1e0b01.
 
-
+      - name: Echo steps.docker_meta.outputs.custom
+        run: echo 'steps.docker_meta.outputs.custom was ${{ steps.docker_meta.outputs.args }}.' 
 
       -
         name: Set up QEMU
@@ -46,6 +45,7 @@ jobs:
 
       -
         name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v1 
         with:
           registry: ghcr.io
@@ -68,5 +68,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          push: true
+          file: ./Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
