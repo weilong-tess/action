@@ -22,8 +22,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            name/app
-            ghcr.io/username/app
+            ghcr.io/weilong-tess/demo
           # add git short SHA as Docker tag
           tag-sha: true
 
@@ -52,5 +51,5 @@ jobs:
           push: true
           tags: |
             ghcr.io/weilong-tess/demo:latest
-            ghcr.io/weilong-tess/demo:1.0.0
-            ghcr.io/weilong-tess/demo:2-${{ steps.docker_meta.outputs.tags }}
+            # ghcr.io/weilong-tess/demo:1.0.0
+            2-${{ steps.docker_meta.outputs.tags }}
