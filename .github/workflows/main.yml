@@ -32,4 +32,5 @@ jobs:
         with:
           context: .
           push: true
+          registry: ghcr.io/weilong-tess
           tags: demo:latest
