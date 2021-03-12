@@ -93,7 +93,7 @@ jobs:
         name: Build and push for Hello
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./appHello/Dockerfile
+          context: ./appHello
+          file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta_2.outputs.tags }}
