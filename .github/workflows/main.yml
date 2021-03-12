@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'master'
+    tags:
+      - '*.*.*'
 
 jobs:
   docker:
@@ -12,6 +14,20 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+
+      -
+        name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            name/app
+            ghcr.io/username/app
+          # add git short SHA as Docker tag
+          tag-sha: true
+
+
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -36,4 +52,5 @@ jobs:
           push: true
           tags: |
             ghcr.io/weilong-tess/demo:latest
-            ghcr.io/weilong-tess/demo:v1.0.0
+            ghcr.io/weilong-tess/demo:1.0.0
+            ghcr.io/weilong-tess/demo:2-${{ steps.docker_meta.outputs.tags }}
