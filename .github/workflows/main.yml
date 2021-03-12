@@ -34,6 +34,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ｜
+          tags: |
             ghcr.io/weilong-tess/demo:latest
-            ghcr.io/weilong-tess/demo:1.0.0
+            ghcr.io/weilong-tess/demo:v1.0.0
